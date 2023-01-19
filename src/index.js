@@ -163,25 +163,25 @@ class Action extends React.Component{
               <div className="form-group col-md-6">
                 <label>Ad Soyad</label>
                 <input type="text" name='txtisim' className="form-control"/>
-                {this.state.erroradsoyad && <p>{this.state.erroradsoyad}</p>}
+                {this.state.erroradsoyad && <p className='text-danger'>{this.state.erroradsoyad}</p>}
               </div>
 
               <div className="form-group col-md-6">
                 <label>Sicil No</label>
                 <input type="number" name='txtsicilno' className="form-control"/>
-                {this.state.errorsicil && <p>{this.state.errorsicil}</p>}
+                {this.state.errorsicil && <p className='text-danger'>{this.state.errorsicil}</p>}
               </div>
 
               <div className="form-group col-md-6">
                 <label>Eposta</label>
                 <input type="email" name='txteposta' className="form-control"/>
-                {this.state.erroreposta && <p>{this.state.erroreposta}</p>}
+                {this.state.erroreposta && <p className='text-danger'>{this.state.erroreposta}</p>}
               </div>
 
               <div className="form-group col-md-6">
                 <label>Şifre</label>
                 <input type="password" name='txtsifre' className="form-control"/>
-                {this.state.errorsifre && <p>{this.state.errorsifre}</p>}
+                {this.state.errorsifre && <p className='text-danger'>{this.state.errorsifre}</p>}
               </div>
 
             </div>
