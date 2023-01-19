@@ -90,7 +90,7 @@ class Personel extends React.Component{
                   <div className="col-sm-6">
                     <div className="card">
                       <div className="card-body">
-                        <h5 class="card-title">Kayıt Ol</h5>
+                        <h5 className="card-title">Kayıt Ol</h5>
                         <Action addAdSoyad={this.addAdSoyad}
                         addSicilNo={this.addSicilNo}
                         addePosta={this.addePosta}
@@ -101,7 +101,7 @@ class Personel extends React.Component{
                   <div className="col-sm-6">
                     <div className="card">
                       <div className="card-body">
-                        <h5 class="card-title">Kayıtlar</h5>
+                        <h5 className="card-title">Kayıtlar</h5>
                         <AddPersonelList adSoyad={this.state.adSoyad}
                         sicilNo={this.state.sicilNo}
                         ePosta={this.state.ePosta}
