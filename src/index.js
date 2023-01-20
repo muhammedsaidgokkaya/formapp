@@ -1,100 +1,122 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-class AddPersonelList extends React.Component{
-  render(){
-    return(
-      <div>
-        <ul className ="list-group">
-          {
-            this.props.sicilNo.map((itemsicil,indexsicil) => 
-              <AddPersonel key={indexsicil} itemsicil={itemsicil} />
-            )
-          }
-        </ul>
-      </div>
-    )
+const Actions = () => {
+  const [adSoyad,setAdSoyad] = useState("");
+  const [sicilNo,setSicilNo] = useState("");
+  const [ePosta,setEPosta] = useState("");
+  const [sifre,setSifre] = useState("");
+
+  const [adSoyaderr,setAdSoyaderr] = useState({});
+  const [sicilNoerr,setSicilNoerr] = useState({});
+  const [ePostaerr,setEPostaerr] = useState({});
+  const [sifreerr,setSifreerr] = useState({});
+
+  const onSubmit = (e) => {
+    const itemadsoyad = e.target.elements.adsoyaditem.value.trim();
+    const itemsicilno = e.target.elements.sicilnoitem.value.trim();
+    const itemeposta = e.target.elements.epostaitem.value.trim();
+    const itemsifre = e.target.elements.sifreitem.value.trim();
+
+    console.log(itemadsoyad);
+    console.log(itemsicilno);
+    console.log(itemeposta);
+    console.log(itemsifre);
+    const isValid = formValidation();
+    if (isValid) {
+      return formValidation() + alert('Kayıt Başarılı.');
+    }
+    else{
+      e.preventDefault();
+      return alert('Lütfen Formu Doldurunuz.');
+    }
   }
-}
 
-class AddPersonel extends React.Component{
-  render(){
-    return(
-      <div>
-       <li className="list-group-item disabled">
-        Sicil No: {this.props.itemsicil} Kayıt Tamamlandı.
-       </li>
-      </div>
-    )
+  const formValidation = () => {
+    const adSoyaderr = {};
+    const sicilNoerr = {};
+    const ePostaerr = {};
+    const sifreerr = {};
+
+    let isValid = true;
+
+    if (adSoyad.trim().length <= 0) {
+      adSoyaderr.adSoyadhata = "Ad Soyad Alanı Boş Geçilemez.";
+      isValid = false;
+    }
+    if (sicilNo.trim().length <= 0) {
+      sicilNoerr.sicilNohata = "Sicil No Alanı Boş Geçilemez.";
+      isValid = false;
+    }
+    if (ePosta.trim().length <= 0) {
+      ePostaerr.ePostahata = "E-Posta Alanı Boş Geçilemez.";
+      isValid = false;
+    }
+    if (sifre.trim().length <= 0) {
+      sifreerr.sifrehata = "Şifre Alanı Boş Geçilemez.";
+      isValid = false;
+    }
+
+    setAdSoyaderr(adSoyaderr);
+    setSicilNoerr(sicilNoerr);
+    setEPostaerr(ePostaerr);
+    setSifreerr(sifreerr);
+
+    return isValid;
   }
-}
 
-class Personel extends React.Component{
-    constructor(props){
-      super(props);
-      this.addAdSoyad = this.addAdSoyad.bind(this);
-      this.addSicilNo = this.addSicilNo.bind(this);
-      this.addePosta = this.addePosta.bind(this);
-      this.addSifre = this.addSifre.bind(this);
-      this.state = {
-        adSoyad: [],
-        sicilNo: [],
-        ePosta: [],
-        sifre: []
-      }
-    }
-
-    addAdSoyad(itemadsoyad){
-      if (!itemadsoyad) {
-        return 'Ad Soyad Alanı Boş Geçilemez!'
-      }
-      this.setState((prevState)=>{
-        return {adSoyad : prevState.adSoyad.concat(itemadsoyad)}
-      })
-    }
-
-    addSicilNo(itemsicil){
-      if (!itemsicil) {
-        return 'Sicil No Alanı Boş Geçilemez!'
-      }
-      this.setState((prevState)=>{
-        return {sicilNo : prevState.sicilNo.concat(itemsicil)}
-      })
-    }
-
-    addePosta(itemeposta){
-      if (!itemeposta) {
-        return 'E-posta Alanı Boş Geçilemez!'
-      }
-      this.setState((prevState)=>{
-        return {ePosta : prevState.ePosta.concat(itemeposta)}
-      })
-    }
-
-    addSifre(itemsifre){
-      if (!itemsifre) {
-        return 'Şifre Alanı Boş Geçilemez!'
-      }
-      this.setState((prevState)=>{
-        return {sifre : prevState.sifre.concat(itemsifre)}
-      })
-    }
-
-    render(){
-      return(
-        <div className="container">
-          <div className="card mt-5">
+  return (
+    <div>
+      <div className="card mt-5">
             <div className="card-body">
                 <div className="row">
                   <div className="col-sm-6">
                     <div className="card">
                       <div className="card-body">
                         <h5 className="card-title">Kayıt Ol</h5>
-                        <Action addAdSoyad={this.addAdSoyad}
-                        addSicilNo={this.addSicilNo}
-                        addePosta={this.addePosta}
-                        addSifre={this.addSifre}/>
+                        <form onSubmit={onSubmit}>
+                          <div className="form-row">
+                  
+                            <div className="form-group col-md-6">
+                              <label>Ad Soyad</label>
+                              <input type="text" name='adsoyaditem' value={adSoyad} onChange={(e)=>{setAdSoyad(e.target.value)}} className="form-control"/>
+                              {Object.keys(adSoyaderr).map((key)=>{
+                                return  <p className='text-danger'>{adSoyaderr[key]}</p>
+                              })}
+                            </div>
+                  
+                            <div className="form-group col-md-6">
+                              <label>Sicil No</label>
+                              <input type="number" name='sicilnoitem' value={sicilNo} onChange={(e)=>{setSicilNo(e.target.value)}} className="form-control"/>
+                              {Object.keys(sicilNoerr).map((key)=>{
+                                return  <p className='text-danger'>{sicilNoerr[key]}</p>
+                              })}
+                            </div>
+                  
+                            <div className="form-group col-md-6">
+                              <label>Eposta</label>
+                              <input type="email" name='epostaitem' value={ePosta} onChange={(e)=>{setEPosta(e.target.value)}} className="form-control"/>
+                              {Object.keys(ePostaerr).map((key)=>{
+                                return  <p className='text-danger'>{ePostaerr[key]}</p>
+                              })}
+                            </div>
+                  
+                            <div className="form-group col-md-6">
+                              <label>Şifre</label>
+                              <input type="password" name='sifreitem' value={sifre} onChange={(e)=>{setSifre(e.target.value)}} className="form-control"/>
+                              {Object.keys(sifreerr).map((key)=>{
+                                return  <p className='text-danger'>{sifreerr[key]}</p>
+                              })}
+                            </div>
+                  
+                          </div>
+                          
+                          <br/>
+                  
+                          <button type="submit" className="btn btn-primary">Kayıt Ol</button>
+                        </form>
+
                       </div>
                     </div>
                   </div>
@@ -102,98 +124,33 @@ class Personel extends React.Component{
                     <div className="card">
                       <div className="card-body">
                         <h5 className="card-title">Kayıtlar</h5>
-                        <AddPersonelList adSoyad={this.state.adSoyad}
-                        sicilNo={this.state.sicilNo}
-                        ePosta={this.state.ePosta}
-                        sifre={this.state.sifre}/>
+                        <div>
+                          <ul className ="list-group">
+                              <div>
+                                  <li className="list-group-item disabled">
+                                      Sicil No: Kayıt Tamamlandı.
+                                  </li>   
+                              </div>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
             </div>
           </div>
-        </div>
-      )
-    }
+      </div>
+  )
 }
 
-class Action extends React.Component{
-    constructor(props){
-      super(props);
-      this.onFormSubmit = this.onFormSubmit.bind(this);
-      this.state = {
-        erroradsoyad:'',
-        errorsicil: '',
-        erroreposta: '',
-        errorsifre: ''
-      }
-    }
-  
-    onFormSubmit(e){
-      e.preventDefault();
-      const itemadsoyad = e.target.elements.txtisim.value.trim();
-      const erroradsoyad = this.props.addAdSoyad(itemadsoyad);
-      this.setState({
-        erroradsoyad:erroradsoyad
-      })
-      const itemsicil = e.target.elements.txtsicilno.value.trim();
-      const errorsicil = this.props.addSicilNo(itemsicil);
-      this.setState({
-        errorsicil:errorsicil
-      })
-      const itemeposta = e.target.elements.txteposta.value.trim();
-      const erroreposta = this.props.addePosta(itemeposta);
-      this.setState({
-        erroreposta:erroreposta
-      })
-      const itemsifre = e.target.elements.txtsifre.value.trim();
-      const errorsifre = this.props.addSifre(itemsifre);
-      this.setState({
-        errorsifre:errorsifre
-      })
-    }
-
-    render(){
-      return(
-        <div>
-          
-          <form onSubmit={this.onFormSubmit}>
-            <div className="form-row">
-
-              <div className="form-group col-md-6">
-                <label>Ad Soyad</label>
-                <input type="text" name='txtisim' className="form-control"/>
-                {this.state.erroradsoyad && <p className='text-danger'>{this.state.erroradsoyad}</p>}
-              </div>
-
-              <div className="form-group col-md-6">
-                <label>Sicil No</label>
-                <input type="number" name='txtsicilno' className="form-control"/>
-                {this.state.errorsicil && <p className='text-danger'>{this.state.errorsicil}</p>}
-              </div>
-
-              <div className="form-group col-md-6">
-                <label>Eposta</label>
-                <input type="email" name='txteposta' className="form-control"/>
-                {this.state.erroreposta && <p className='text-danger'>{this.state.erroreposta}</p>}
-              </div>
-
-              <div className="form-group col-md-6">
-                <label>Şifre</label>
-                <input type="password" name='txtsifre' className="form-control"/>
-                {this.state.errorsifre && <p className='text-danger'>{this.state.errorsifre}</p>}
-              </div>
-
-            </div>
-            
-            <br/>
-
-            <button type="submit" className="btn btn-primary">Kayıt Ol</button>
-          </form>
-        </div>
-      )
-    }
+function App(){
+  var template = (
+    <div className="container">
+        <Actions/>
+    </div>
+  );
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(template,root);
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Personel />,root);
+App();
