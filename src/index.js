@@ -7,6 +7,7 @@ const Actions = () => {
   const [sicilNo,setSicilNo] = useState("");
   const [ePosta,setEPosta] = useState("");
   const [sifre,setSifre] = useState("");
+  const [dil,setDil] = useState("");
 
   const [adSoyaderr,setAdSoyaderr] = useState({});
   const [sicilNoerr,setSicilNoerr] = useState({});
@@ -14,26 +15,17 @@ const Actions = () => {
   const [sifreerr,setSifreerr] = useState({});
 
   const onSubmit = (e) => {
-    const itemadsoyad = e.target.elements.adsoyaditem.value.trim();
-    const itemsicilno = e.target.elements.sicilnoitem.value.trim();
-    const itemeposta = e.target.elements.epostaitem.value.trim();
-    const itemsifre = e.target.elements.sifreitem.value.trim();
-
-    console.log(itemadsoyad);
-    console.log(itemsicilno);
-    console.log(itemeposta);
-    console.log(itemsifre);
     const isValid = formValidation();
     if (isValid) {
       return formValidation() + alert('Kayıt Başarılı.');
     }
     else{
       e.preventDefault();
-      return alert('Lütfen Formu Doldurunuz.');
     }
   }
 
   const formValidation = () => {
+    
     const adSoyaderr = {};
     const sicilNoerr = {};
     const ePostaerr = {};
@@ -109,6 +101,17 @@ const Actions = () => {
                                 return  <p className='text-danger'>{sifreerr[key]}</p>
                               })}
                             </div>
+
+                            <div className="form-group col-md-6">
+                              <label>Konuştuğu Dil</label>
+                              <select className='form-select' onChange={(e)=>{setDil(e.target.value)}}>
+                                <option value="Türkçe">Türkçe</option>
+                                <option value="İngilizce">İngilizce</option>
+                                <option value="Almanca">Almanca</option>
+                                <option value="İtalyanca">İtalyanca</option>
+                                <option value="Fransızca">Fransızca</option>
+                              </select>
+                            </div>
                   
                           </div>
                           
@@ -123,16 +126,8 @@ const Actions = () => {
                   <div className="col-sm-6">
                     <div className="card">
                       <div className="card-body">
-                        <h5 className="card-title">Kayıtlar</h5>
-                        <div>
-                          <ul className ="list-group">
-                              <div>
-                                  <li className="list-group-item disabled">
-                                      Sicil No: Kayıt Tamamlandı.
-                                  </li>   
-                              </div>
-                          </ul>
-                        </div>
+                        <p className='text-secondary'>{sicilNo}</p>
+                        <p className='text-secondary'>{dil}</p>
                       </div>
                     </div>
                   </div>
@@ -143,14 +138,5 @@ const Actions = () => {
   )
 }
 
-function App(){
-  var template = (
-    <div className="container">
-        <Actions/>
-    </div>
-  );
-  const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render(template,root);
-}
-
-App();
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Actions/>,root);
